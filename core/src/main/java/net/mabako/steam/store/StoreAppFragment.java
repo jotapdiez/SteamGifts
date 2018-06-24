@@ -82,6 +82,83 @@ public class StoreAppFragment extends StoreFragment {
                         if (data.has("release_date"))
                             items.add(new Text("<strong>Release:</strong> " + data.getJSONObject("release_date").getString("date"), true, true));
 
+                        // Categories (icons)
+                        if (data.has("categories")){
+                            JSONArray categories = data.getJSONArray("categories");
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0; i < categories.length(); ++i) {
+                                JSONObject cat = categories.getJSONObject(i);
+                                String icoName = "";
+                                switch (cat.getInt("id")){
+                                    case 1: //Multijugador
+                                        icoName = "ico_multiPlayer";
+                                        break;
+                                    case 2: //Un jugador
+                                        icoName = "ico_singlePlayer";
+                                        break;
+                                    case 8: //Con sist. antitrampas de Valve
+                                        icoName = "ico_vac";
+                                        break;
+                                    case 9: //Cooperativo
+                                        icoName = "ico_coop";
+                                        break;
+                                    case 13: //Subtítulos disponibles
+                                        icoName = "ico_cc";
+                                        break;
+                                    case 14: //Comentario disponible
+                                        icoName = "ico_commentary";
+                                        break;
+                                    case 15: //Estadísticas
+                                        icoName = "ico_stats";
+                                        break;
+                                    case 17: //Incluye editor de niveles
+                                        icoName = "ico_editor";
+                                        break;
+                                    case 18: //Compat. parcial con mando
+                                        icoName = "ico_partial_controller";
+                                        break;
+                                    case 22: //Logros
+                                        icoName = "ico_achievements";
+                                        break;
+                                    case 23: //Steam Cloud
+                                        icoName = "ico_cloud";
+                                        break;
+                                    case 27: //Multijugador multiplataforma
+                                        icoName = "ico_multiPlayer";
+                                        break;
+                                    case 28: //Full controller support
+                                        icoName = "ico_controller";
+                                        break;
+                                    case 29: //Cromos
+                                        icoName = "ico_cards";
+                                        break;
+                                    case 30: //Steam Workshop
+                                        icoName = "ico_workshop";
+                                        break;
+                                    case 35: //Compras dentro de la aplicación
+                                        icoName = "ico_cart";
+                                        break;
+                                    case 36: //Multijugador en línea
+                                        icoName = "ico_multiPlayer";
+                                        break;
+                                    case 37: //Multijugador local
+                                        icoName = "ico_multiPlayer";
+                                        break;
+                                }
+
+                                if (icoName.equals("")){
+                                    Log.d(TAG, "icono de Categories no contemplado. ID:"+cat.getInt("id"));
+                                }else {
+                                    String element = "<img src=\"https://steamstore-a.akamaihd.net/public/images/v6/ico/"+icoName+".png\" style=\"width: 26px; height: 16px;\">";
+                                    //String element = "https://steamstore-a.akamaihd.net/public/images/v6/ico/ico_" + icoName + ".png";
+                                    sb.append(element);
+                                    Log.d(TAG, "Agregando picture: "+ element);
+                                    //items.add(new Picture(element));
+                                }
+                            }
+                            items.add(new Text(sb.toString(), true));
+                        }
+
                         // Genres
                         if (data.has("genres")) {
                             JSONArray genres = data.getJSONArray("genres");
@@ -104,6 +181,7 @@ public class StoreAppFragment extends StoreFragment {
                         if (data.has("screenshots")) {
                             JSONArray screenshots = data.getJSONArray("screenshots");
                             for (int i = 0; i < screenshots.length(); ++i) {
+                                Log.d(TAG, "Agregando screenshots: " + screenshots.getJSONObject(i).getString("path_thumbnail"));
                                 items.add(new Picture(screenshots.getJSONObject(i).getString("path_thumbnail")));
                             }
                         }

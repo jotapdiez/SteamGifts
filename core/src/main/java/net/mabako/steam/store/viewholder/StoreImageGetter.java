@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.Html;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -25,9 +26,10 @@ public class StoreImageGetter implements Html.ImageGetter {
 
     @Override
     public Drawable getDrawable(final String source) {
+        Log.d("StoreImageGetter", "Source: "+source);
         Uri uri = Uri.parse(source);
-        if (!"cdn.akamai.steamstatic.com".equals(uri.getHost()))
-            return null;
+        /*if (!"cdn.akamai.steamstatic.com".equals(uri.getHost()))
+            return null;*/
 
         final BitmapDrawablePlaceHolder result = new BitmapDrawablePlaceHolder(resources);
 
