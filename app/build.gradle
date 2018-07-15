@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    flavorDimensions "default"
+
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId 'net.mabako.steamgifts'
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         project.ext.set('archivesBaseName', 'SteamGifts')
@@ -41,6 +42,7 @@ android {
         disable 'GoogleAppIndexingWarning'
         warning 'InvalidPackage' // okio references java.nio, which is not part of android.
     }
+    buildToolsVersion '26.0.2'
 }
 
 dependencies {

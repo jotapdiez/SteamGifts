@@ -26,9 +26,8 @@ public class StoreImageGetter implements Html.ImageGetter {
 
     @Override
     public Drawable getDrawable(final String source) {
-        Log.d("StoreImageGetter", "Source: "+source);
         Uri uri = Uri.parse(source);
-        /*if (!"cdn.akamai.steamstatic.com".equals(uri.getHost()))
+        /*if (!"steamstore-a.akamaihd.net".equals(uri.getHost()) && !uri.toString().contains("/ico/"))
             return null;*/
 
         final BitmapDrawablePlaceHolder result = new BitmapDrawablePlaceHolder(resources);
@@ -53,6 +52,7 @@ public class StoreImageGetter implements Html.ImageGetter {
                     result.setDrawable(drawable);
                     result.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 
+                    textView.invalidate();
                     textView.setText(textView.getText());
                 } catch (Exception e) {
                 }
